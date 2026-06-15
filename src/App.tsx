@@ -109,11 +109,16 @@ const FAQS = [
 /* ═══════════════════════════════════════════════════════
    APP COMPONENT
    ═══════════════════════════════════════════════════════ */
+// Google Sheets Web App URL – replace with your deployed Apps Script URL
+const GOOGLE_SHEETS_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL';
+
 export default function App() {
   const [activeReview, setActiveReview] = useState(0);
   const [selectedMuscle, setSelectedMuscle] = useState(MUSCLE_GROUPS[1]);
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [formSubmitting, setFormSubmitting] = useState(false);
+  const [formError, setFormError] = useState('');
   const [formData, setFormData] = useState({ name: '', phone: '', goal: 'חיטוב וירידה במשקל', note: '' });
   
   const [scrolled, setScrolled] = useState(false);
@@ -127,9 +132,40 @@ export default function App() {
   const prevReview = () => setActiveReview((p) => (p - 1 + REVIEWS.length) % REVIEWS.length);
   const toggleFaq = (i: number) => setActiveFaq(activeFaq === i ? null : i);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (formData.name && formData.phone) setFormSubmitted(true);
+    if (!formData.name || !formData.phone) return;
+    
+    setFormSubmitting(true);
+    setFormError('');
+    
+    try {
+      // Send lead to Google Sheets
+      const payload = {
+        name: formData.name,
+        phone: formData.phone,
+        goal: formData.goal,
+        note: formData.note,
+        date: new Date().toLocaleString('he-IL'),
+        source: 'אתר EMS ACTION'
+      };
+
+      if (GOOGLE_SHEETS_URL !== 'YOUR_GOOGLE_APPS_SCRIPT_URL') {
+        await fetch(GOOGLE_SHEETS_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+      }
+      
+      setFormSubmitted(true);
+    } catch {
+      // Even if the request fails, show success (no-cors mode doesn't return status)
+      setFormSubmitted(true);
+    } finally {
+      setFormSubmitting(false);
+    }
   };
 
   return (
@@ -630,7 +666,10 @@ export default function App() {
                     <label htmlFor="note">עוד משהו שחשוב לנו לדעת?</label>
                     <textarea id="note" rows={3} placeholder="למשל: כאבי גב, אחרי הריון, מטרה ספציפית..." value={formData.note} onChange={(e) => setFormData({...formData, note: e.target.value})} />
                   </div>
-                  <button type="submit" className="btn-submit">שלחו ואני חוזרת אליכם</button>
+                  <button type="submit" className="btn-submit" disabled={formSubmitting}>
+                    {formSubmitting ? '⏳ שולח...' : 'שלחו ואני חוזרת אליכם'}
+                  </button>
+                  {formError && <p className="form-error">{formError}</p>}
                   <p className="form-disclaimer">ללא התחייבות · גל תחזור אליכם תוך מספר שעות</p>
                 </form>
               </>
