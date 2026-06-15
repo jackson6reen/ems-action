@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { 
   Zap, 
   Clock, 
@@ -11,36 +11,115 @@ import {
   Star,
   ShieldCheck,
   TrendingUp,
-  UserCheck
+  UserCheck,
+  ChevronDown
 } from 'lucide-react';
 
 // Reviews Data
 const REVIEWS = [
   {
     name: "מיכל כהן",
-    role: "מתאמנת כשנה בסטודיו",
-    text: "האימון הכי יעיל שעשיתי בחיים שלי. בתור אמא לשניים ועובדת במשרה מלאה, 20 דקות פעם בשבוע סוגרות לי את הפינה של הכושר. גל מאמנת מדהימה וקשובה!",
-    stars: 5
+    role: "עובדת הייטק ואמא לשלושה (יהוד)",
+    text: "בתור מישהי שעובדת 10 שעות ביום מול מחשב ורצה בין הילדים, לא מצאתי זמן ללכת לחדר כושר. אימון ה-EMS בסטודיו של גל שינה לי את החיים. 20 דקות פעם בשבוע, האימון הכי ממוקד ויעיל שחוויתי. מומלץ ביותר!",
+    stars: 5,
+    tag: "חיסכון בזמן"
   },
   {
-    name: "דוד לוי",
-    role: "הגיע בגלל כאבי גב",
-    text: "הגעתי ל-EMS Action בגלל כאבי גב כרוניים שלא עברו. אחרי חודשיים של אימונים ממוקדים פעם בשבוע, כאבי הגב נעלמו כמעט לחלוטין. מומלץ בחום לכל מי שסובל או מחפש פתרון מהיר.",
-    stars: 5
+    name: "אילן לוי",
+    role: "הגיע לסטודיו בעקבות כאבי גב כרוניים",
+    text: "סבלתי מכאבי גב תחתון במשך שנים. ניסיתי פיזיותרפיה, דיקור ומה לא. ב-EMS Action חיזקנו את שרירי הליבה העמוקים באימונים ממוקדים 1-על-1 עם גל. היום, חודשיים אחרי, הכאבים פשוט נעלמו. אין מילים להודות.",
+    stars: 5,
+    tag: "שיקום גב"
   },
   {
-    name: "שירה אזולאי",
-    role: "ירדה 8 קילו בחיטוב",
-    text: "שילוב של אימוני EMS ותזונה נכונה בסטודיו עשה פלאים. הליווי האישי של גל והמעקב השבועי נתנו לי את המוטיבציה שלא מצאתי באף חדר כושר רגיל.",
-    stars: 5
+    name: "יסמין ברק",
+    role: "ירדה 6 קילו וחיטבה את הגוף",
+    text: "היחס האישי של גל והמעקב השבועי אחר אחוזי השומן והמדדים נתנו לי את המוטיבציה שהייתה חסרה לי. האימונים אינטנסיביים, מאתגרים אבל כיפיים בטירוף. מרגישים את השרירים עובדים בכל שנייה!",
+    stars: 5,
+    tag: "חיטוב וירידה במשקל"
+  }
+];
+
+// Muscle Stimulation Data
+const MUSCLE_GROUPS = [
+  {
+    id: "back",
+    name: "גב ותחתון",
+    description: "חיזוק שרירי הזוקפים והגב העמוקים ללא עומס על חוליות עמוד השדרה. הפתרון המושלם לשיקום והקלה על כאבי גב כרוניים ויציבה כפופה.",
+    percentage: 95,
+    pulseRate: "85 Hz"
+  },
+  {
+    id: "abs",
+    name: "בטן וליבה",
+    description: "הפעלה בעצימות גבוהה של שריר הבטן הרוחבי (Transversus abdominis) והאלכסונים. מחזק את חגורת הבטן ומספק תמיכה קריטית ליציבה.",
+    percentage: 98,
+    pulseRate: "80 Hz"
+  },
+  {
+    id: "chest",
+    name: "חזה וכתפיים",
+    description: "אימון EMS מפעיל את שרירי החזה באופן מאוזן ויעיל, משפר את היציבה ומסייע בעיצוב וחיזוק פלג הגוף העליון בצורה הרמונית.",
+    percentage: 90,
+    pulseRate: "85 Hz"
+  },
+  {
+    id: "glutes",
+    name: "ישבן ואגן",
+    description: "כיווץ עמוק ויעיל במיוחד של שרירי הישבן (Gluteus maximus). מעודד שריפת קלוריות מוגברת, מיצוק וחיטוב מהיר של אזור הירכיים והאגן.",
+    percentage: 96,
+    pulseRate: "90 Hz"
+  },
+  {
+    id: "legs",
+    name: "ירכיים ורגליים",
+    description: "הפעלה סימולטנית של השריר הארבע-ראשי וההאמסטרינגס. מחזק את הרגליים, משפר את זרימת הדם ומסייע בהפחתת צלוליט.",
+    percentage: 92,
+    pulseRate: "85 Hz"
+  }
+];
+
+// FAQs Data
+const FAQS = [
+  {
+    question: "האם אימון EMS בטוח לבריאות?",
+    answer: "כן, בהחלט. הטכנולוגיה מבוססת על עשורים של מחקרים רפואיים ומאושרת על ידי ה-FDA ומשרד הבריאות הישראלי. הפולסים החשמליים של המכשיר מדמים במדויק את האותות החשמליים שהמוח שולח באופן טבעי לשריר כדי לכווץ אותו, אך בעצימות גבוהה ומבוקרת יותר, ללא כל סיכון."
+  },
+  {
+    question: "האם זה כואב?",
+    answer: "לא, האימון אינו כואב. הוא מורגש כעקצוץ עדין או כיווץ אינטנסיבי של השרירים. גל נימני, כמאמנת מוסמכת, שולטת בעוצמת הפולסים של כל קבוצת שרירים בנפרד במהלך האימון, ומכוונת אותה בדיוק לרמה שנוחה ומאתגרת אותך באופן אישי."
+  },
+  {
+    question: "למה מספיק רק אימון אחד של 20 דקות בשבוע?",
+    answer: "באימון כושר רגיל, המוח מפעיל רק חלק קטן מסיבי השריר בכל רגע נתון. באימון EMS, המכשיר מפעיל כ-90% מסיבי השריר בגוף בו-זמנית, כולל השרירים העמוקים והמייצבים. הכיווץ הוא אינטנסיבי פי כמה, ולכן 20 דקות של EMS שוות ערך לכ-4 שעות של אימון מפרך בחדר כושר רגיל. השרירים זקוקים ל-5 עד 7 ימי התאוששות לאחר מכן."
+  },
+  {
+    question: "תוך כמה זמן אראה תוצאות?",
+    answer: "כבר לאחר 4-6 אימונים תתחילו להרגיש שיפור משמעותי ביציבה, בחוזק הכללי והקלה בכאבי גב. תוצאות ויזואליות של חיטוב הגוף, ירידה בהיקפים ושיפור מרקם העור יופיעו לרוב תוך 8-12 שבועות של התמדה שבועית ותזונה מאוזנת."
   }
 ];
 
 export default function App() {
   const [isYearly, setIsYearly] = useState(false);
   const [activeReview, setActiveReview] = useState(0);
+  const [selectedMuscle, setSelectedMuscle] = useState(MUSCLE_GROUPS[1]); // abs as default
+  const [activeFaq, setActiveFaq] = useState<number | null>(null);
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [formData, setFormData] = useState({ name: '', phone: '', note: '' });
+  
+  // Header scrolled state for premium sticky navbar design
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 40) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const nextReview = () => {
     setActiveReview((prev) => (prev + 1) % REVIEWS.length);
@@ -50,31 +129,55 @@ export default function App() {
     setActiveReview((prev) => (prev - 1 + REVIEWS.length) % REVIEWS.length);
   };
 
+  const toggleFaq = (index: number) => {
+    setActiveFaq(activeFaq === index ? null : index);
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (formData.name && formData.phone) {
       setFormSubmitted(true);
-      // Here you would normally send to API or WhatsApp
     }
   };
 
   return (
     <div className="app-container" dir="rtl">
-      {/* Header / Navbar */}
-      <header className="navbar">
+      
+      {/* Dynamic Grid Background Overlay */}
+      <div className="grid-bg"></div>
+
+      {/* Floating Sparkles Behind Content */}
+      <div className="sparkle-glow orange-glow"></div>
+      <div className="sparkle-glow cyan-glow"></div>
+
+      {/* Header / Premium Sticky Navbar */}
+      <header className={`navbar ${scrolled ? 'scrolled' : ''}`}>
         <div className="navbar-inner">
           <div className="logo-area">
-            <span className="logo-badge"><Zap size={20} /></span>
-            <span className="logo-text">EMS Action</span>
+            <span className="logo-badge">
+              <Zap size={20} className="glow-icon" />
+            </span>
+            <div className="logo-text-group">
+              <span className="logo-title">EMS Action</span>
+              <span className="logo-subtitle">BY GAL NIMNI</span>
+            </div>
           </div>
+          
           <nav className="nav-links">
-            <a href="#about">השיטה</a>
-            <a href="#benefits">יתרונות</a>
-            <a href="#pricing">חבילות</a>
-            <a href="#reviews">המלצות</a>
+            <a href="#about" className="nav-link">הטכנולוגיה</a>
+            <a href="#simulator" className="nav-link">סימולטור השרירים</a>
+            <a href="#benefits" className="nav-link">קהל יעד</a>
+            <a href="#about-gal" className="nav-link">המאמנת גל</a>
+            <a href="#pricing" className="nav-link">תוכניות</a>
+            <a href="#faq" className="nav-link">שאלות נפוצות</a>
           </nav>
-          <div className="nav-cta">
-            <a href="https://wa.me/972547471117?text=היי%20גל%20אשמח%20לקבל%20פרטים%20על%20אימון%20ניסיון%20ב-EMS%20Action" className="btn-primary-sm">
+
+          <div className="nav-actions">
+            <a href="tel:0547471117" className="phone-link">
+              <Phone size={18} />
+              <span>054-7471117</span>
+            </a>
+            <a href="#lead-form" className="btn-navbar-cta">
               אימון ניסיון ⚡
             </a>
           </div>
@@ -83,178 +186,445 @@ export default function App() {
 
       {/* Hero Section */}
       <section className="hero">
-        <div className="hero-overlay"></div>
-        <div className="hero-content">
-          <div className="hero-tag">
-            <Zap size={14} className="tag-icon" />
-            <span>סטודיו בוטיק לאימוני EMS אישיים ביהוד</span>
-          </div>
-          <h1 className="hero-title">
-            להתאמן <span className="highlight">20 דקות</span> בשבוע<br />
-            לקבל תוצאות של <span className="highlight">4 שעות</span> בחדר כושר
-          </h1>
-          <p className="hero-subtitle">
-            בסטודיו EMS Action ביהוד בהובלת גל נימני, אנחנו משלבים טכנולוגיית גירוי שרירים חשמלי (EMS) מתקדמת יחד עם אימון אישי 1-על-1 לחיסכון מקסימלי בזמן ותוצאות מהירות.
-          </p>
-          <div className="hero-ctas">
-            <a href="#lead-form" className="btn-primary">
-              תיאום אימון ניסיון במחיר מוזל
-            </a>
-            <a href="https://wa.me/972547471117?text=היי%20גל%20אשמח%20לקבל%20פרטים%20על%20אימון%20ניסיון%20ב-EMS%20Action" className="btn-secondary">
-              שיחה מהירה בוואטסאפ
-            </a>
-          </div>
-          <div className="hero-badges">
-            <span className="hero-badge"><Clock size={16} /> 20 דקות בשבוע בלבד</span>
-            <span className="hero-badge"><UserCheck size={16} /> אימון אישי 1:1 צמוד</span>
-            <span className="hero-badge"><ShieldCheck size={16} /> טכנולוגיה מאושרת רפואית</span>
+        <div className="hero-img-container">
+          <img src="/ems-hero.png" alt="EMS Fitness Training" className="hero-bg-img" />
+          <div className="hero-img-gradient"></div>
+        </div>
+        
+        <div className="container hero-container">
+          <div className="hero-text-side">
+            <div className="premium-tag">
+              <span className="tag-pulse"></span>
+              <span>סטודיו הבוטיק המוביל ביהוד-מונוסון</span>
+            </div>
+            
+            <h1 className="hero-h1">
+              לשנות את הגוף שלך<br />
+              ב-<span className="gradient-text">20 דקות בשבוע</span>
+            </h1>
+            
+            <p className="hero-desc">
+              אימון כושר אישי מבוסס טכנולוגיית EMS בהובלת גל נימני. חיזוק שרירים עמוק, הפחתת כאבי גב וחיטוב מואץ – בשיטה מתקדמת המותאמת במיוחד ללוח הזמנים העמוס שלך.
+            </p>
+            
+            <div className="hero-actions">
+              <a href="#lead-form" className="btn-hero-primary">
+                קביעת אימון ניסיון (1-על-1)
+              </a>
+              <a href="https://wa.me/972547471117?text=היי%20גל%20אשמח%20לקבל%20פרטים%20על%20אימון%20ניסיון%20ב-EMS%20Action" className="btn-hero-secondary" target="_blank" rel="noreferrer">
+                <span>דברו איתי בוואטסאפ</span>
+              </a>
+            </div>
+            
+            <div className="hero-stats">
+              <div className="stat-box">
+                <span className="stat-num">20</span>
+                <span className="stat-lbl">דקות אימון בלבד</span>
+              </div>
+              <div className="stat-divider"></div>
+              <div className="stat-box">
+                <span className="stat-num">90%</span>
+                <span className="stat-lbl">הפעלת סיבי שריר</span>
+              </div>
+              <div className="stat-divider"></div>
+              <div className="stat-box">
+                <span className="stat-num">1:1</span>
+                <span className="stat-lbl">אימון אישי צמוד</span>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Intro to the Method */}
-      <section id="about" className="section-padding bg-darker">
+      {/* Key Stats Bar */}
+      <div className="stats-strip">
+        <div className="container strip-inner">
+          <div className="strip-item">
+            <ShieldCheck className="strip-icon" />
+            <span>אישור רפואי FDA ומשרד הבריאות</span>
+          </div>
+          <div className="strip-item">
+            <TrendingUp className="strip-icon" />
+            <span>מתאים לשיקום גב ומפרקים</span>
+          </div>
+          <div className="strip-item">
+            <UserCheck className="strip-icon" />
+            <span>ליווי מקצועי צמוד ע״י גל נימני</span>
+          </div>
+        </div>
+      </div>
+
+      {/* The Tech Behind EMS Section */}
+      <section id="about" className="section-padding bg-darker relative-section">
         <div className="container">
           <div className="section-header">
-            <span className="section-label">איך זה עובד?</span>
-            <h2>מה זה בכלל אימון EMS?</h2>
+            <span className="section-label">טכנולוגיה מנצחת</span>
+            <h2>איך 20 דקות שוות ל-4 שעות בחדר כושר?</h2>
             <p className="section-desc">
-              טכנולוגיית EMS (Electro Muscle Stimulation) מפעילה 90% מסיבי השריר בגוף בו-זמנית בעזרת פולסים חשמליים עדינים ומבוקרים.
+              אימון EMS Action משתמש בגירוי חשמלי עדין המפעיל את כל קבוצות השרירים בגוף בו-זמנית.
             </p>
           </div>
 
-          <div className="about-grid">
-            <div className="about-card">
-              <div className="about-icon"><Zap size={24} /></div>
-              <h3>כיווץ שרירים עמוק</h3>
-              <p>הפולסים החשמליים מגיעים גם לשרירים המייצבים והעמוקים ביותר, אלו שקשה להפעיל באימון משקולות רגיל.</p>
+          <div className="tech-grid">
+            <div className="tech-media-box">
+              <img src="/ems-plank.jpg" alt="אימון EMS בסטודיו" className="tech-img" />
+              <div className="media-overlay-card">
+                <Zap size={24} className="accent-color" />
+                <div>
+                  <h4>אימון כוח וחיזוק מעשי</h4>
+                  <p>שילוב עצימות ביו-חשמלית עם תרגילים פונקציונליים בסטודיו ביהוד.</p>
+                </div>
+              </div>
             </div>
-            <div className="about-card">
-              <div className="about-icon"><Clock size={24} /></div>
-              <h3>חיסכון אדיר בזמן</h3>
-              <p>אימון אחד של 20 דקות שווה ערך לכ-4 שעות של אימון אינטנסיבי מסורתי. מושלם לאנשים עסוקים.</p>
-            </div>
-            <div className="about-card">
-              <div className="about-icon"><Award size={24} /></div>
-              <h3>בטוח לחלוטין וללא עומס</h3>
-              <p>בלי להעמיס משקל כבד על המפרקים והגב. מתאים במיוחד לשיקום מכאבי גב ופציעות ספורט.</p>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      {/* Benefits Section */}
-      <section id="benefits" className="section-padding bg-dark">
-        <div className="container">
-          <div className="benefits-layout">
-            <div className="benefits-text">
-              <span className="section-label">התוצאות שלך</span>
-              <h2>למי אימון EMS Action הכי מתאים?</h2>
-              <div className="benefit-item">
-                <CheckCircle className="benefit-icon" />
+            <div className="tech-cards">
+              <div className="tech-card">
+                <div className="tech-card-icon-wrapper">
+                  <Zap size={24} />
+                </div>
                 <div>
-                  <h4>לאנשים עסוקים שאין להם זמן</h4>
-                  <p>20 דקות פעם בשבוע בלבד וסיימתם. אין יותר תירוצים של "אין לי זמן ללכת לחדר כושר".</p>
+                  <h3>עבודה על כל הגוף במקביל</h3>
+                  <p>באימון רגיל אנו מפעילים קבוצת שרירים אחת בכל פעם. ב-EMS אנו מפעילים 9 קבוצות שרירים עיקריות בו-זמנית, מה שיוצר אפקט אימון שלם ב-20 דקות בלבד.</p>
                 </div>
               </div>
-              <div className="benefit-item">
-                <CheckCircle className="benefit-icon" />
+
+              <div className="tech-card">
+                <div className="tech-card-icon-wrapper">
+                  <Clock size={24} />
+                </div>
                 <div>
-                  <h4>למעוניינים בחיטוב, ירידה במשקל ובניית שריר</h4>
-                  <p>הפעלת השרירים האינטנסיבית מגבירה את קצב חילוף החומרים בגוף ומסייעת בשריפת שומנים מואצת.</p>
+                  <h3>הגעה לסיבים העמוקים</h3>
+                  <p>הפולסים מגיעים לעומק השריר ומפעילים שרירים מייצבים (כמו אלו התומכים בעמוד השדרה) שכמעט ולא מופעלים באימוני משקולות סטנדרטיים.</p>
                 </div>
               </div>
-              <div className="benefit-item">
-                <CheckCircle className="benefit-icon" />
-                <div>
-                  <h4>למי שסובל מכאבי גב ומפרקים</h4>
-                  <p>האימון מחזק את שרירי הליבה התומכים בעמוד השדרה ללא כל עומס על מפרקים וסחוסים.</p>
+
+              <div className="tech-card">
+                <div className="tech-card-icon-wrapper">
+                  <Award size={24} />
                 </div>
-              </div>
-            </div>
-            <div className="benefits-visual">
-              <div className="visual-card">
-                <TrendingUp size={48} className="visual-icon" />
-                <h3>תוצאות מוכחות מדעית</h3>
-                <p className="visual-number">90%</p>
-                <p className="visual-label">הפעלה של סיבי השריר בכל אימון</p>
-                <div className="visual-divider"></div>
-                <p className="visual-desc">אימון EMS מפעיל גם את השרירים המייצבים והעמוקים ביותר שאינם פעילים באימון קונבנציונלי.</p>
+                <div>
+                  <h3>שריפת קלוריות מוגברת (Afterburn)</h3>
+                  <p>בשל הכיווץ האינטנסיבי, הגוף ממשיך לשרוף קלוריות בקצב מוגבר עד 48 שעות לאחר סיום האימון, מה שמאיץ ירידה במשקל וחיטוב.</p>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Pricing Packages Section */}
-      <section id="pricing" className="section-padding bg-darker">
+      {/* Interactive Muscle Simulator (10,000 NIS custom wow factor) */}
+      <section id="simulator" className="section-padding bg-dark">
         <div className="container">
           <div className="section-header">
-            <span className="section-label">מחירון ותוכניות</span>
-            <h2>חבילות האימון של EMS Action</h2>
-            <p className="section-desc">השקעה ממוקדת בגוף ובבריאות שלך. בחר את המסלול המתאים ביותר עבורך.</p>
+            <span className="section-label">אינטראקטיבי</span>
+            <h2>סימולטור השפעת פולס ה-EMS</h2>
+            <p className="section-desc">לחץ על אזור בגוף כדי לראות כיצד אימון ה-EMS משפיע עליו ומסייע לחיזוקו.</p>
+          </div>
+
+          <div className="simulator-box">
+            <div className="simulator-grid">
+              
+              {/* Graphic body sidebar */}
+              <div className="body-visualizer-panel">
+                <div className="body-silhouette-container">
+                  {/* Human Body SVG Wireframe */}
+                  <svg viewBox="0 0 200 400" className="body-svg">
+                    <defs>
+                      <linearGradient id="glowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#00d2c4" stopOpacity="0.8" />
+                        <stop offset="100%" stopColor="#005080" stopOpacity="0.2" />
+                      </linearGradient>
+                    </defs>
+                    {/* Head */}
+                    <circle cx="100" cy="50" r="18" className="body-part" />
+                    {/* Neck */}
+                    <rect x="96" y="68" width="8" height="12" className="body-part" />
+                    {/* Torso */}
+                    <path d="M75 80 L125 80 L130 180 L70 180 Z" className="body-part" />
+                    {/* Arms */}
+                    <path d="M70 80 L50 160 L40 160 L65 80 Z" className="body-part" />
+                    <path d="M130 80 L150 160 L160 160 L135 80 Z" className="body-part" />
+                    {/* Legs */}
+                    <path d="M72 185 L65 300 L55 380 L72 380 L82 300 L85 185 Z" className="body-part" />
+                    <path d="M128 185 L135 300 L145 380 L128 380 L118 300 L115 185 Z" className="body-part" />
+
+                    {/* Interactive dots overlay */}
+                    {/* Chest dot */}
+                    <circle 
+                      cx="100" 
+                      cy="105" 
+                      r="10" 
+                      className={`target-dot ${selectedMuscle.id === 'chest' ? 'active' : ''}`}
+                      onClick={() => setSelectedMuscle(MUSCLE_GROUPS[2])}
+                    />
+                    {/* Abs dot */}
+                    <circle 
+                      cx="100" 
+                      cy="140" 
+                      r="10" 
+                      className={`target-dot ${selectedMuscle.id === 'abs' ? 'active' : ''}`}
+                      onClick={() => setSelectedMuscle(MUSCLE_GROUPS[1])}
+                    />
+                    {/* Back dot */}
+                    <circle 
+                      cx="100" 
+                      cy="120" 
+                      r="8" 
+                      className={`target-dot ${selectedMuscle.id === 'back' ? 'active' : ''}`}
+                      onClick={() => setSelectedMuscle(MUSCLE_GROUPS[0])}
+                    />
+                    {/* Glutes dot */}
+                    <circle 
+                      cx="100" 
+                      cy="195" 
+                      r="10" 
+                      className={`target-dot ${selectedMuscle.id === 'glutes' ? 'active' : ''}`}
+                      onClick={() => setSelectedMuscle(MUSCLE_GROUPS[3])}
+                    />
+                    {/* Legs dot */}
+                    <circle 
+                      cx="80" 
+                      cy="260" 
+                      r="10" 
+                      className={`target-dot ${selectedMuscle.id === 'legs' ? 'active' : ''}`}
+                      onClick={() => setSelectedMuscle(MUSCLE_GROUPS[4])}
+                    />
+                    <circle 
+                      cx="120" 
+                      cy="260" 
+                      r="10" 
+                      className={`target-dot ${selectedMuscle.id === 'legs' ? 'active' : ''}`}
+                      onClick={() => setSelectedMuscle(MUSCLE_GROUPS[4])}
+                    />
+                  </svg>
+                </div>
+                
+                {/* Visualizer muscle selector buttons */}
+                <div className="muscle-selector-buttons">
+                  {MUSCLE_GROUPS.map((m) => (
+                    <button 
+                      key={m.id}
+                      className={`muscle-btn ${selectedMuscle.id === m.id ? 'active' : ''}`}
+                      onClick={() => setSelectedMuscle(m)}
+                    >
+                      {m.name}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Detail display side panel */}
+              <div className="muscle-details-panel">
+                <div className="details-header">
+                  <div className="details-accent-line"></div>
+                  <span className="details-meta">קבוצת שרירים שנבחרה</span>
+                  <h3>{selectedMuscle.name}</h3>
+                </div>
+                
+                <p className="details-text">{selectedMuscle.description}</p>
+                
+                <div className="details-metrics-row">
+                  <div className="details-metric">
+                    <span className="metric-val">{selectedMuscle.percentage}%</span>
+                    <span className="metric-lbl">רמת כיווץ שריר</span>
+                  </div>
+                  <div className="details-metric">
+                    <span className="metric-val">{selectedMuscle.pulseRate}</span>
+                    <span className="metric-lbl">תדר פולס אופטימלי</span>
+                  </div>
+                </div>
+
+                <div className="details-simulator-visual">
+                  <span className="pulse-wave-line"></span>
+                  <span className="pulse-wave-line delays-1"></span>
+                  <span className="pulse-wave-line delays-2"></span>
+                  <div className="pulse-indicator">
+                    <Zap size={16} />
+                    <span>סימולציית פולס פעילה</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Target Audience Section */}
+      <section id="benefits" className="section-padding bg-darker">
+        <div className="container">
+          <div className="section-header">
+            <span className="section-label">קהל יעד</span>
+            <h2>למי האימון מתאים?</h2>
+            <p className="section-desc">
+              אימון ה-EMS של גל נימני מותאם אישית למטרות ולמצב הבריאותי שלך.
+            </p>
+          </div>
+
+          <div className="audience-cards">
+            <div className="audience-card">
+              <div className="audience-img-wrapper">
+                <div className="audience-icon"><Clock size={28} /></div>
+              </div>
+              <h3>אנשים עסוקים שאין להם זמן</h3>
+              <p>אם המשרה שלכם עמוסה, הילדים דורשים את שלהם ואין לכם שעה וחצי לפנות שלוש פעמים בשבוע – 20 דקות במוצאי שבת או בבוקר פותרות לכם את הפינה.</p>
+            </div>
+
+            <div className="audience-card">
+              <div className="audience-img-wrapper">
+                <div className="audience-icon"><TrendingUp size={28} /></div>
+              </div>
+              <h3>סובלים מכאבי גב וצוואר</h3>
+              <p>הפולסים מחזקים את השרירים המקיפים את עמוד השדרה ללא שום עומס על הדיסקים והחוליות, ועוזרים להחזיר את היציבה הנכונה ולמנוע כאב.</p>
+            </div>
+
+            <div className="audience-card">
+              <div className="audience-img-wrapper">
+                <div className="audience-icon"><Award size={28} /></div>
+              </div>
+              <h3>מעוניינים בחיטוב ומיצוק מהיר</h3>
+              <p>אידיאלי לאחר הריונות, ירידה במשקל או כהשלמה לכושר קיים. הפעלה של 90% מסיבי השריר מביאה לחיזוק שרירים ומיצוק העור במהירות שיא.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* About Gal Nimni & Studio Section */}
+      <section id="about-gal" className="section-padding bg-darker profile-section">
+        <div className="container">
+          <div className="profile-grid">
+            <div className="profile-img-side">
+              <div className="profile-frame">
+                <img src="/ems-opening.jpg" alt="גל נימני - פתיחת סטודיו EMS Action" className="profile-img" />
+                <div className="profile-badge">
+                  <Award size={20} />
+                  <span>פתיחה חגיגית 🥂</span>
+                </div>
+              </div>
+            </div>
             
+            <div className="profile-text-side">
+              <span className="section-label">הלב של הסטודיו</span>
+              <h2>גל נימני – המאמנת האישית שלך</h2>
+              <p className="profile-lead">
+                נעים להכיר, אני גל נימני, מייסדת ומאמנת כושר מוסמכת בסטודיו הבוטיק EMS Action ביהוד.
+              </p>
+              <p className="profile-desc">
+                החזון שלי הוא להנגיש את מהפכת ה-EMS בצורה המקצועית והאישית ביותר. בסטודיו שלנו, כל אימון הוא 1-על-1 באווירה בוטיקית ושקטה. אנו לא עוד חדר כושר המוני – אנו מעניקים לך ליווי אישי צמוד, התאמה מדויקת של עוצמת המכשיר לכל קבוצת שרירים, ומעקב מדדים שבועי כדי להבטיח תוצאות מקסימליות בזמן קצר.
+              </p>
+              
+              <div className="profile-bullets">
+                <div className="bullet-item">
+                  <CheckCircle size={18} className="accent-color" />
+                  <div>
+                    <h4>מקצועיות ללא פשרות</h4>
+                    <p>הסמכת EMS מקצועית וליווי צמוד המונע פציעות וממקסם את עבודת השריר.</p>
+                  </div>
+                </div>
+                <div className="bullet-item">
+                  <CheckCircle size={18} className="accent-color" />
+                  <div>
+                    <h4>חוויית סטודיו בוטיק</h4>
+                    <p>אימון שקט וממוקד, ללא רעש והמוניות של מכוני כושר רגילים.</p>
+                  </div>
+                </div>
+                <div className="bullet-item">
+                  <CheckCircle size={18} className="accent-color" />
+                  <div>
+                    <h4>התאמה למטרות רפואיות וחיטוב</h4>
+                    <p>פתרונות שיקום גב, חיזוק שרירי ליבה וחיטוב מואץ בשיטה בטוחה ומבוקרת.</p>
+                  </div>
+                </div>
+              </div>
+
+              <a href="#lead-form" className="btn-profile-cta">
+                תיאום אימון ניסיון איתי ⚡
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Pricing / Packages Section */}
+      <section id="pricing" className="section-padding bg-dark">
+        <div className="container">
+          <div className="section-header">
+            <span className="section-label">חבילות הצטרפות</span>
+            <h2>ההשקעה בגוף שלך</h2>
+            <p className="section-desc">ליווי אישי ממוקד תוצאות. בחר את המסלול המתאים לך.</p>
+
             <div className="toggle-container">
-              <span className={`toggle-label ${!isYearly ? 'active' : ''}`}>חבילה חודשית</span>
+              <span className={`toggle-label ${!isYearly ? 'active' : ''}`}>אימון בודד / כרטיסייה</span>
               <button 
                 className={`toggle-switch ${isYearly ? 'active' : ''}`} 
                 onClick={() => setIsYearly(!isYearly)}
               >
                 <span className="toggle-handle"></span>
               </button>
-              <span className={`toggle-label ${isYearly ? 'active' : ''}`}>כרטיסיית אימונים (הנחת כמות)</span>
+              <span className={`toggle-label ${isYearly ? 'active' : ''}`}>מנוי חודשי קבוע (משתלם)</span>
             </div>
           </div>
 
           <div className="pricing-grid">
+            
+            {/* Standard Package */}
             <div className="pricing-card">
-              <div className="pricing-badge">הכי פופולרי</div>
-              <h3>מסלול כושר אישי</h3>
+              <h3>חבילת חיטוב וכושר שבועי</h3>
               <div className="price-display">
-                <span className="price-number">{isYearly ? "₪140" : "₪170"}</span>
+                <span className="price-number">{isYearly ? "₪135" : "₪160"}</span>
                 <span className="price-period">/ אימון</span>
               </div>
-              <p className="price-sub">מתאים למתאמנים המעוניינים בהתמדה שבועית צמודה</p>
+              <p className="price-sub">מתאים למי שרוצה לשלב כושר אפקטיבי בשגרה שבועית</p>
+              
+              <div className="price-divider"></div>
+              
               <ul className="price-features">
-                <li><CheckCircle size={16} /> אימון אישי 1-על-1 צמוד עם גל</li>
-                <li><CheckCircle size={16} /> התאמת חליפת אלקטרודות אישית</li>
-                <li><CheckCircle size={16} /> ליווי תזונתי ומעקב מדדים שבועי</li>
-                <li><CheckCircle size={16} /> בניית תוכנית עבודה מותאמת אישית</li>
-                <li><CheckCircle size={16} /> זמני אימון גמישים בתיאום מראש</li>
+                <li><CheckCircle size={16} /> אימון אישי 1-על-1 צמוד עם גל נימני</li>
+                <li><CheckCircle size={16} /> התאמה מלאה של חליפת אלקטרודות</li>
+                <li><CheckCircle size={16} /> מעקב הרכב גוף שבועי (אחוזי שומן/שריר)</li>
+                <li><CheckCircle size={16} /> התאמת עוצמת גירוי אישית לכל שריר</li>
+                <li><CheckCircle size={16} /> גמישות בתיאום שעות האימון</li>
               </ul>
+              
               <a href="#lead-form" className="btn-pricing">תיאום אימון ניסיון</a>
             </div>
 
+            {/* Premium Package */}
             <div className="pricing-card premium">
-              <h3>מסלול שיקום וחיזוק גב</h3>
+              <div className="pricing-badge">מומלץ לתוצאות</div>
+              <h3>חבילת שיקום וכאבי גב</h3>
               <div className="price-display">
-                <span className="price-number">{isYearly ? "₪160" : "₪190"}</span>
+                <span className="price-number">{isYearly ? "₪155" : "₪180"}</span>
                 <span className="price-period">/ אימון</span>
               </div>
-              <p className="price-sub">מסלול ממוקד להקלה על כאבים וחיזוק שרירי ליבה מייצבים</p>
+              <p className="price-sub">מסלול משולב לחיזוק שרירים עמוקים והעלמת כאבים</p>
+              
+              <div className="price-divider"></div>
+              
               <ul className="price-features">
-                <li><CheckCircle size={16} /> אימון אישי מותאם למגבלות פיזיות</li>
-                <li><CheckCircle size={16} /> דגש מיוחד על שרירי ליבה וגב תחתון</li>
-                <li><CheckCircle size={16} /> מעקב שבועי אחר רמת הכאב והשיפור</li>
-                <li><CheckCircle size={16} /> התאמה ע״י מאמנת מוסמכת בשיקום</li>
-                <li><CheckCircle size={16} /> ייעוץ ארגונומי ליום-יום</li>
+                <li><CheckCircle size={16} /> דגש מיוחד על חיזוק זוקפי גב ושרירי ליבה</li>
+                <li><CheckCircle size={16} /> תוכנית הדרגתית מותאמת לפי מגבלות</li>
+                <li><CheckCircle size={16} /> אימון בקצב אישי המונע עומס על מפרקים</li>
+                <li><CheckCircle size={16} /> מעקב הרכב גוף ויציבה</li>
+                <li><CheckCircle size={16} /> ליווי אישי 1-על-1 באווירה שקטה ובטוחה</li>
               </ul>
+              
               <a href="#lead-form" className="btn-pricing-premium">תיאום אימון ניסיון</a>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Testimonial / Reviews Slider */}
-      <section id="reviews" className="section-padding bg-dark">
+      {/* Testimonials Section */}
+      <section className="section-padding bg-darker">
         <div className="container">
           <div className="section-header">
-            <span className="section-label">מתאמנים מספרים</span>
-            <h2>מה אומרים עלינו ביהוד?</h2>
+            <span className="section-label">סיפורי הצלחה ביהוד</span>
+            <h2>מה אומרים המתאמנים שלנו?</h2>
           </div>
 
           <div className="reviews-slider-container">
             <div className="review-card">
+              <div className="review-tag-badge">{REVIEWS[activeReview].tag}</div>
               <div className="stars">
                 {[...Array(REVIEWS[activeReview].stars)].map((_, i) => (
                   <Star key={i} size={18} fill="#ffc107" color="#ffc107" />
@@ -268,13 +638,13 @@ export default function App() {
             </div>
             
             <div className="slider-controls">
-              <button onClick={prevReview} className="slider-btn">
+              <button onClick={prevReview} className="slider-btn" aria-label="הקודם">
                 <ChevronRight size={20} />
               </button>
               <span className="slider-indicator">
-                {activeReview + 1} / {REVIEWS.length}
+                {activeReview + 1} מתוך {REVIEWS.length}
               </span>
-              <button onClick={nextReview} className="slider-btn">
+              <button onClick={nextReview} className="slider-btn" aria-label="הבא">
                 <ChevronLeft size={20} />
               </button>
             </div>
@@ -282,29 +652,59 @@ export default function App() {
         </div>
       </section>
 
-      {/* Interactive Contact / Lead Form */}
-      <section id="lead-form" className="section-padding bg-darker form-section">
+      {/* FAQ Section */}
+      <section id="faq" className="section-padding bg-dark">
+        <div className="container small-container">
+          <div className="section-header">
+            <span className="section-label">שאלות נפוצות</span>
+            <h2>כל מה שרציתם לדעת על EMS</h2>
+          </div>
+
+          <div className="faq-accordion-list">
+            {FAQS.map((faq, i) => (
+              <div 
+                key={i} 
+                className={`faq-item ${activeFaq === i ? 'active' : ''}`}
+                onClick={() => toggleFaq(i)}
+              >
+                <div className="faq-question">
+                  <span>{faq.question}</span>
+                  <ChevronDown className="faq-arrow" size={18} />
+                </div>
+                <div className="faq-answer">
+                  <div className="faq-answer-inner">
+                    <p>{faq.answer}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Booking Form Section */}
+      <section id="lead-form" className="section-padding bg-darker relative-section">
         <div className="container small-container">
           <div className="form-box">
             {formSubmitted ? (
               <div className="form-success">
-                <div className="success-icon"><Zap size={48} /></div>
-                <h3>הפנייה התקבלה בהצלחה!</h3>
-                <p>גל תחזור אלייך בהקדם לקביעת אימון הניסיון שלך בסטודיו ביהוד.</p>
+                <div className="success-icon"><Zap size={40} /></div>
+                <h3>פרטיך נשלחו לגל!</h3>
+                <p>נציג הסטודיו או גל נימני בעצמה יחזרו אליך לקביעת אימון ניסיון מותאם אישית ביהוד.</p>
                 <a 
-                  href="https://wa.me/972547471117?text=היי%20גל%20השארתי%20פרטים%20באתר%20אשמח%20לדבר%20ולקבוע%20אימון" 
+                  href={`https://wa.me/972547471117?text=היי%20גל%2C%20אני%20פונה%20מהאתר.%20שמי%20${encodeURIComponent(formData.name)}.%20השארתי%20פרטים%20ואשמח%20לקבוע%20אימון%20ניסיון!`} 
                   className="btn-whatsapp-success"
                   target="_blank"
                   rel="noreferrer"
                 >
-                  שלח הודעה ישירה לוואטסאפ לזירוז
+                  מעבר מהיר לתיאום בוואטסאפ
                 </a>
               </div>
             ) : (
               <>
                 <div className="form-header">
-                  <h2>אימון ניסיון ב-EMS Action</h2>
-                  <p>השאירו פרטים וגל תחזור אליכם לתיאום אימון ניסיון מותאם אישית ביהוד.</p>
+                  <h2>אימון ניסיון אישי ב-EMS Action</h2>
+                  <p>השאירו פרטים ונחזור אליכם לקביעת אימון ניסיון מותאם אישית בסטודיו ביהוד.</p>
                 </div>
                 <form onSubmit={handleSubmit} className="actual-form">
                   <div className="form-group">
@@ -319,28 +719,28 @@ export default function App() {
                     />
                   </div>
                   <div className="form-group">
-                    <label htmlFor="phone">מספר טלפון</label>
+                    <label htmlFor="phone">מספר טלפון ליצירת קשר</label>
                     <input 
                       type="tel" 
                       id="phone" 
-                      placeholder="מספר טלפון"
+                      placeholder="לדוגמה: 050-1234567"
                       value={formData.phone}
                       onChange={(e) => setFormData({...formData, phone: e.target.value})}
                       required 
                     />
                   </div>
                   <div className="form-group">
-                    <label htmlFor="note">הערה / בקשה מיוחדת (כאבי גב, ירידה במשקל וכדומה)</label>
+                    <label htmlFor="note">מטרה עיקרית או פציעות (כאבי גב, ירידה במשקל, חיזוק)</label>
                     <textarea 
                       id="note" 
                       rows={3} 
-                      placeholder="למשל: סובל מכאבי גב תחתון / מעוניינת בחיטוב לקראת אירוע..."
+                      placeholder="למשל: סובל מכאבי גב תחתון ומחפש הקלה..."
                       value={formData.note}
                       onChange={(e) => setFormData({...formData, note: e.target.value})}
                     ></textarea>
                   </div>
                   <button type="submit" className="btn-submit">
-                    שלחו לי פרטים לאימון ניסיון
+                    תיאום אימון ניסיון אישי
                   </button>
                 </form>
               </>
@@ -349,51 +749,50 @@ export default function App() {
         </div>
       </section>
 
-      {/* Map & Contact Footer */}
+      {/* Map & Location info */}
       <section className="contact-footer section-padding bg-dark">
         <div className="container">
           <div className="footer-grid">
             <div className="footer-info">
-              <h3>פרטי הסטודיו</h3>
+              <h3>פרטי קשר ומיקום</h3>
+              
               <div className="info-row">
                 <MapPin className="info-icon" />
-                <span>מתחם אשכנזי (רחוב אשכנזי 21), יהוד-מונוסון</span>
+                <div>
+                  <h4>הסטודיו שלנו</h4>
+                  <p>רחוב אשכנזי 21, יהוד-מונוסון (מתחם אשכנזי)</p>
+                </div>
               </div>
+
               <div className="info-row">
                 <Phone className="info-icon" />
-                <span>054-7471117 (יצירת קשר עם גל)</span>
+                <div>
+                  <h4>טלפון לתיאום ובירורים</h4>
+                  <p>054-7471117 (גל נימני)</p>
+                </div>
               </div>
+
               <div className="info-row">
                 <Clock className="info-icon" />
-                <span>ימים א׳ - ה׳: 08:00 - 20:00 | יום ו׳: 08:00 - 12:00 | שבת: סגור</span>
-              </div>
-              <div className="social-links">
-                <a href="#" className="social-btn">
-                  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/>
-                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
-                    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
-                  </svg>
-                </a>
-                <a href="#" className="social-btn">
-                  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
-                  </svg>
-                </a>
+                <div>
+                  <h4>שעות פעילות הסטודיו</h4>
+                  <p>ימים א׳ - ה׳: 08:00 - 20:00 | יום ו׳: 08:00 - 12:00 | שבת: סגור</p>
+                </div>
               </div>
             </div>
+
             <div className="footer-map">
               <div className="map-placeholder">
                 <MapPin size={32} className="map-pin-icon" />
-                <h4>EMS Action - יהוד-מונוסון</h4>
-                <p>אשכנזי 21, יהוד (מתחם אשכנזי)</p>
+                <h4>ניווט קל לסטודיו</h4>
+                <p>אשכנזי 21, יהוד (חנייה במקום)</p>
                 <a 
                   href="https://waze.com/ul?q=אשכנזי%2021%20יהוד" 
                   className="btn-waze"
                   target="_blank"
                   rel="noreferrer"
                 >
-                  ניווט באמצעות Waze 🚗
+                  נווט לסטודיו ב-Waze 🚗
                 </a>
               </div>
             </div>
@@ -401,10 +800,10 @@ export default function App() {
         </div>
       </section>
 
-      {/* Main Footer */}
+      {/* Footer bar */}
       <footer className="footer-main bg-darker">
-        <p>© 2026 EMS Action - סטודיו בוטיק לאימוני EMS ביהוד. כל הזכויות שמורות.</p>
-        <p className="footer-credit">עוצב ונבנה ע״י גל נימני שיווק דיגיטלי & אסטרטגיה</p>
+        <p>© 2026 EMS Action - סטודיו בוטיק לאימוני EMS ביהוד. כל הזכויות שמורות לגל נימני.</p>
+        <p className="footer-credit">אסטרטגיה, מיתוג ופיתוח: גל נימני שיווק דיגיטלי & ייעוץ עסקי</p>
       </footer>
 
       {/* Floating WhatsApp Button */}
@@ -413,6 +812,7 @@ export default function App() {
         className="whatsapp-float"
         target="_blank"
         rel="noreferrer"
+        aria-label="צ'אט בוואטסאפ"
       >
         <span className="tooltip">דברו איתי בוואטסאפ</span>
         <svg viewBox="0 0 24 24" className="whatsapp-icon"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
