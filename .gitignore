@@ -22,3 +22,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+.vercel
+
+# Search Scripts
+search*.js
+search*.cjs
+search*.txt
