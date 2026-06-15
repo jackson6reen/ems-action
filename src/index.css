@@ -2146,4 +2146,69 @@ a {
   }
 }
 
+/* Process Section Styles */
+.process-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 40px;
+  margin-bottom: 50px;
+  margin-top: 40px;
+}
+
+.process-step {
+  display: flex;
+  gap: 24px;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  padding: 35px;
+  position: relative;
+  transition: var(--transition);
+  text-align: right;
+}
+
+.process-step:hover {
+  border-color: var(--accent-cyan-border);
+  background-color: var(--bg-card-hover);
+  transform: translateY(-3px);
+}
+
+.step-num {
+  font-size: 3rem;
+  font-weight: 900;
+  color: var(--accent-cyan);
+  opacity: 0.8;
+  line-height: 1;
+  font-family: 'Rubik', sans-serif;
+}
+
+.step-content {
+  text-align: right;
+}
+
+.step-content h3 {
+  font-size: 1.3rem;
+  font-weight: 950;
+  color: #ffffff;
+  margin-bottom: 12px;
+}
+
+.step-content p {
+  font-size: 0.98rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .process-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  
+  .process-step {
+    padding: 24px;
+  }
+}
+
+
 

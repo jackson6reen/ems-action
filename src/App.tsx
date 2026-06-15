@@ -100,12 +100,11 @@ const FAQS = [
 ];
 
 export default function App() {
-  const [isYearly, setIsYearly] = useState(false);
   const [activeReview, setActiveReview] = useState(0);
   const [selectedMuscle, setSelectedMuscle] = useState(MUSCLE_GROUPS[1]); // abs as default
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
   const [formSubmitted, setFormSubmitted] = useState(false);
-  const [formData, setFormData] = useState({ name: '', phone: '', note: '' });
+  const [formData, setFormData] = useState({ name: '', phone: '', goal: 'חיטוב וירידה במשקל', note: '' });
   
   // Header scrolled state for premium sticky navbar design
   const [scrolled, setScrolled] = useState(false);
@@ -168,7 +167,7 @@ export default function App() {
             <a href="#simulator" className="nav-link">סימולטור השרירים</a>
             <a href="#benefits" className="nav-link">קהל יעד</a>
             <a href="#about-gal" className="nav-link">המאמנת גל</a>
-            <a href="#pricing" className="nav-link">תוכניות</a>
+            <a href="#pricing" className="nav-link">שיטת העבודה</a>
             <a href="#faq" className="nav-link">שאלות נפוצות</a>
           </nav>
 
@@ -549,29 +548,62 @@ export default function App() {
         </div>
       </section>
 
-      {/* Pricing / Packages Section */}
+      {/* 4-Step Process Section (Replaces Pricing Section) */}
       <section id="pricing" className="section-padding bg-dark">
         <div className="container">
           <div className="section-header">
-            <span className="section-label">חבילות הצטרפות</span>
-            <h2>ההשקעה בגוף שלך</h2>
-            <p className="section-desc">ליווי אישי ממוקד תוצאות. בחר את המסלול המתאים לך.</p>
+            <span className="section-label">שיטת העבודה שלנו</span>
+            <h2>איך אנחנו מגיעים לתוצאות?</h2>
+            <p className="section-desc">
+              אימון הבוטיק ההיברידי של גל נימני משלב ליווי צמוד, אסטרטגיה מדעית וטכנולוגיה מאיצה. הנה המסלול שלך להצלחה:
+            </p>
+          </div>
 
-            <div className="toggle-container">
-              <span className={`toggle-label ${!isYearly ? 'active' : ''}`}>אימון בודד / כרטיסייה</span>
-              <button 
-                className={`toggle-switch ${isYearly ? 'active' : ''}`} 
-                onClick={() => setIsYearly(!isYearly)}
-              >
-                <span className="toggle-handle"></span>
-              </button>
-              <span className={`toggle-label ${isYearly ? 'active' : ''}`}>מנוי חודשי קבוע (משתלם)</span>
+          <div className="process-grid">
+            <div className="process-step">
+              <div className="step-num">01</div>
+              <div className="step-content">
+                <h3>אבחון גופני וניתוח מדדים מקיף</h3>
+                <p>
+                  נבדוק במדויק את אחוזי השומן, מסת שריר העמוק, העצימות המטבולית וקצב חילוף החומרים שלך. זהו הבסיס המדעי לבניית יעדים ריאליים ומהירים.
+                </p>
+              </div>
+            </div>
+
+            <div className="process-step">
+              <div className="step-num">02</div>
+              <div className="step-content">
+                <h3>התאמת אסטרטגיית תזונה אישית</h3>
+                <p>
+                  ללא הרעבה וללא דיאטות קיצוניות. גל בונה עבורך תפריט תזונה גמיש ומהנה שמתאים ללוח הזמנים ואורח החיים שלך, כדי לשמר ולחזק את חילוף החומרים.
+                </p>
+              </div>
+            </div>
+
+            <div className="process-step">
+              <div className="step-num">03</div>
+              <div className="step-content">
+                <h3>אימון כוח היברידי אישי ממוקד</h3>
+                <p>
+                  בכל פגישה נשלב אימון כושר פונקציונלי 1-על-1 המותאם אישית למפרקים ולגב שלך, יחד עם חליפת ה-EMS ACTION המפעילה כ-90% מסיבי השריר במקביל לשריפת קלוריות מוגברת.
+                </p>
+              </div>
+            </div>
+
+            <div className="process-step">
+              <div className="step-num">04</div>
+              <div className="step-content">
+                <h3>ליווי שבועי צמוד והתחייבות לתוצאות</h3>
+                <p>
+                  מעקב שבועי קפדני אחר מדדי הגוף, חיזוק הליבה ורמת האנרגיה. גל מלווה אותך אישית ומחויבת להצלחה שלך עם התחייבות לתוצאות: לא ראית שינוי תוך 30 יום? החזר כספי מלא!
+                </p>
+              </div>
             </div>
           </div>
 
-          {/* Irresistible Kickstart Offer Callout */}
+          {/* Irresistible Kickstart Offer Callout Box */}
           <div className="kickstart-offer-box">
-            <div className="offer-badge-glow">הצעה מיוחדת לזמן מוגבל</div>
+            <div className="offer-badge-glow">הצעה שלא ניתן לסרב לה</div>
             <div className="kickstart-offer-content">
               <div className="offer-text">
                 <h3>חבילת התנעה לשינוי גופני מובטח ב-30 יום</h3>
@@ -590,54 +622,6 @@ export default function App() {
                 <p className="price-terms">חד-פעמי לפגישת ההיכרות</p>
                 <a href="#lead-form" className="btn-offer-cta">תיאום פגישה ב-₪99 בלבד</a>
               </div>
-            </div>
-          </div>
-
-          <div className="pricing-grid">
-            
-            {/* Standard Package */}
-            <div className="pricing-card">
-              <h3>חבילת חיטוב וכושר שבועי</h3>
-              <div className="price-display">
-                <span className="price-number">{isYearly ? "₪135" : "₪160"}</span>
-                <span className="price-period">/ אימון</span>
-              </div>
-              <p className="price-sub">מתאים למי שרוצה לשלב כושר אפקטיבי בשגרה שבועית</p>
-              
-              <div className="price-divider"></div>
-              
-              <ul className="price-features">
-                <li><CheckCircle size={16} /> אימון אישי 1-על-1 בשיטה ההיברידית</li>
-                <li><CheckCircle size={16} /> התאמת עוצמת גירוי אישית לכל שריר</li>
-                <li><CheckCircle size={16} /> מעקב הרכב גוף שבועי (אחוזי שומן/שריר)</li>
-                <li><CheckCircle size={16} /> גישה לתוכנית הבית שלנו לתוצאות מהירות</li>
-                <li><CheckCircle size={16} /> גמישות בתיאום שעות האימון</li>
-              </ul>
-              
-              <a href="#lead-form" className="btn-pricing">תיאום פגישת היכרות</a>
-            </div>
-
-            {/* Premium Package */}
-            <div className="pricing-card premium">
-              <div className="pricing-badge">מומלץ לתוצאות</div>
-              <h3>חבילת שיקום וכאבי גב</h3>
-              <div className="price-display">
-                <span className="price-number">{isYearly ? "₪155" : "₪180"}</span>
-                <span className="price-period">/ אימון</span>
-              </div>
-              <p className="price-sub">מסלול משולב לחיזוק שרירים עמוקים והעלמת כאבים</p>
-              
-              <div className="price-divider"></div>
-              
-              <ul className="price-features">
-                <li><CheckCircle size={16} /> דגש מיוחד על חיזוק זוקפי גב ושרירי ליבה</li>
-                <li><CheckCircle size={16} /> תוכנית אימונים אישית למניעת עומס</li>
-                <li><CheckCircle size={16} /> טכנולוגיית EMS להקלה מיידית</li>
-                <li><CheckCircle size={16} /> מעקב יציבה והרכב גוף מתמשך</li>
-                <li><CheckCircle size={16} /> ליווי אישי של גל נימני לאורך כל התהליך</li>
-              </ul>
-              
-              <a href="#lead-form" className="btn-pricing-premium">תיאום פגישת היכרות</a>
             </div>
           </div>
         </div>
@@ -721,7 +705,7 @@ export default function App() {
                 <h3>פרטיך נשלחו לגל!</h3>
                 <p>נציג הסטודיו או גל נימני בעצמה יחזרו אליך לקביעת פגישת היכרות מותאמת אישית ביהוד.</p>
                 <a 
-                  href={`https://wa.me/972543422190?text=היי%20גל%2C%20אני%20פונה%20מהאתר.%20שמי%20${encodeURIComponent(formData.name)}.%20השארתי%20פרטים%20ואשמח%20לקבוע%20פגישת%20היכרות%20ב-99%20ש%22ח!`} 
+                  href={`https://wa.me/972543422190?text=היי%20גל%2C%20אני%20פונה%20מהאתר.%20שמי%20${encodeURIComponent(formData.name)}.%20השארתי%20פרטים.%20המטרה%20שלי%20היא%20${encodeURIComponent(formData.goal)}.%20אשמח%20לקבוע%20פגישת%20היכרות%20ב-99%20ש%22ח!`} 
                   className="btn-whatsapp-success"
                   target="_blank"
                   rel="noreferrer"
@@ -746,6 +730,32 @@ export default function App() {
                       onChange={(e) => setFormData({...formData, name: e.target.value})}
                       required 
                     />
+                  </div>
+                  <div className="form-group">
+                    <label htmlFor="goal">מהי המטרה העיקרית שלך?</label>
+                    <select 
+                      id="goal" 
+                      value={formData.goal}
+                      onChange={(e) => setFormData({...formData, goal: e.target.value})}
+                      className="form-select"
+                      style={{
+                        backgroundColor: 'rgba(8, 9, 13, 0.6)',
+                        border: '1px solid var(--border-color)',
+                        color: 'var(--text-primary)',
+                        padding: '14px 18px',
+                        borderRadius: '12px',
+                        fontFamily: 'var(--font-sans)',
+                        fontSize: '1rem',
+                        transition: 'var(--transition)',
+                        width: '100%',
+                        cursor: 'pointer'
+                      }}
+                    >
+                      <option value="חיטוב וירידה במשקל">חיטוב, ירידה במשקל ושריפת קלוריות 🏃‍♀️</option>
+                      <option value="הפחתת כאבי גב ושיקום">הפחתת כאבי גב, כאבי מפרקים ויציבה 🩺</option>
+                      <option value="חיזוק כללי וכושר שיא">חיזוק כללי, מסת שריר וכושר שיא ⚡</option>
+                      <option value="חיסכון בזמן ושמירה על שגרה">חיסכון בזמן ושמירה על שגרה בריאה ⏱️</option>
+                    </select>
                   </div>
                   <div className="form-group">
                     <label htmlFor="phone">מספר טלפון ליצירת קשר</label>
