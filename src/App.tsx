@@ -90,8 +90,8 @@ const FAQS = [
     answer: "לא, האימון אינו כואב. הוא מורגש כעקצוץ עדין או כיווץ אינטנסיבי של השרירים. גל נימני, כמאמנת מוסמכת, שולטת בעוצמת הפולסים של כל קבוצת שרירים בנפרד במהלך האימון, ומכוונת אותה בדיוק לרמה שנוחה ומאתגרת אותך באופן אישי."
   },
   {
-    question: "למה מספיק רק אימון אחד של 20 דקות בשבוע?",
-    answer: "באימון כושר רגיל, המוח מפעיל רק חלק קטן מסיבי השריר בכל רגע נתון. באימון EMS, המכשיר מפעיל כ-90% מסיבי השריר בגוף בו-זמנית, כולל השרירים העמוקים והמייצבים. הכיווץ הוא אינטנסיבי פי כמה, ולכן 20 דקות של EMS שוות ערך לכ-4 שעות של אימון מפרך בחדר כושר רגיל. השרירים זקוקים ל-5 עד 7 ימי התאוששות לאחר מכן."
+    question: "למה האימון נחשב לקצר ואפקטיבי כל כך?",
+    answer: "אימוני הבוטיק שלנו משלבים ליווי אישי ממוקד יחד עם טכנולוגיית ה-EMS ACTION. בזמן אימון כושר רגיל המוח מפעיל רק חלק קטן מסיבי השריר, בעוד שגירוי ה-EMS הפעיל (הנמשך כ-20 דקות מתוך הסשן המלא) מפעיל כ-90% מסיבי השריר בגוף בו-זמנית, כולל השרירים המייצבים והעמוקים ביותר. זה מאפשר להגיע לאפקט אימון מירבי ועמוק ללא צורך בשעות ארוכות בחדר הכושר."
   },
   {
     question: "תוך כמה זמן אראה תוצאות?",
@@ -158,7 +158,7 @@ export default function App() {
               <Zap size={20} className="glow-icon" />
             </span>
             <div className="logo-text-group">
-              <span className="logo-title">EMS Action</span>
+              <span className="logo-title">EMS ACTION</span>
               <span className="logo-subtitle">BY GAL NIMNI</span>
             </div>
           </div>
@@ -173,12 +173,12 @@ export default function App() {
           </nav>
 
           <div className="nav-actions">
-            <a href="tel:0547471117" className="phone-link">
+            <a href="tel:0543422190" className="phone-link">
               <Phone size={18} />
-              <span>054-7471117</span>
+              <span>054-3422190</span>
             </a>
             <a href="#lead-form" className="btn-navbar-cta">
-              אימון ניסיון ⚡
+              חבילת התנעה ⚡
             </a>
           </div>
         </div>
@@ -199,27 +199,32 @@ export default function App() {
             </div>
             
             <h1 className="hero-h1">
-              לשנות את הגוף שלך<br />
-              ב-<span className="gradient-text">20 דקות בשבוע</span>
+              אימון כושר אישי פרימיום<br />
+              משולב טכנולוגיית <span className="gradient-text">EMS ACTION</span>
             </h1>
             
             <p className="hero-desc">
-              אימון כושר אישי מבוסס טכנולוגיית EMS בהובלת גל נימני. חיזוק שרירים עמוק, הפחתת כאבי גב וחיטוב מואץ – בשיטה מתקדמת המותאמת במיוחד ללוח הזמנים העמוס שלך.
+              שילוב מנצח של אימון כושר פונקציונלי ממוקד וטכנולוגיית EMS ACTION מתקדמת לשריפת קלוריות מואצת וחיזוק הליבה. ליווי אישי 1-על-1 בהובלת גל נימני, כולל אבחון הרכב גוף ובניית תוכנית תזונה לשינוי גופני מובטח.
             </p>
             
             <div className="hero-actions">
               <a href="#lead-form" className="btn-hero-primary">
-                קביעת אימון ניסיון (1-על-1)
+                קבלו את חבילת ההתנעה ב-₪99 בלבד ⚡
               </a>
-              <a href="https://wa.me/972547471117?text=היי%20גל%20אשמח%20לקבל%20פרטים%20על%20אימון%20ניסיון%20ב-EMS%20Action" className="btn-hero-secondary" target="_blank" rel="noreferrer">
-                <span>דברו איתי בוואטסאפ</span>
+              <a href="https://wa.me/972543422190?text=היי%20גל%2C%20אשמח%20לקבל%20פרטים%20על%20חבילת%20ההתנעה%20ב-99%20ש%22ח%20בסטודיו%20EMS%20ACTION" className="btn-hero-secondary" target="_blank" rel="noreferrer">
+                <span>שיחת ייעוץ בוואטסאפ</span>
               </a>
+            </div>
+
+            <div className="offer-callout-hero">
+              <span className="offer-fire">🔥</span>
+              <span><strong>הצעה שלא ניתן לסרב לה:</strong> אימון היכרות פרימיום + אבחון הרכב גוף + תוכנית תזונה ב-<strong>₪99 בלבד</strong> (במקום ₪350). פלוס התחייבות לתוצאות ב-30 יום!</span>
             </div>
             
             <div className="hero-stats">
               <div className="stat-box">
-                <span className="stat-num">20</span>
-                <span className="stat-lbl">דקות אימון בלבד</span>
+                <span className="stat-num">3X</span>
+                <span className="stat-lbl">קצב שריפת קלוריות</span>
               </div>
               <div className="stat-divider"></div>
               <div className="stat-box">
@@ -259,9 +264,9 @@ export default function App() {
         <div className="container">
           <div className="section-header">
             <span className="section-label">טכנולוגיה מנצחת</span>
-            <h2>איך 20 דקות שוות ל-4 שעות בחדר כושר?</h2>
+            <h2>איך אימון קצר ואפקטיבי שווה ל-4 שעות בחדר כושר?</h2>
             <p className="section-desc">
-              אימון EMS Action משתמש בגירוי חשמלי עדין המפעיל את כל קבוצות השרירים בגוף בו-זמנית.
+              אימון EMS ACTION משלב גירוי שרירים ביו-חשמלי עדין במהלך אימון כושר פונקציונלי מונחה.
             </p>
           </div>
 
@@ -284,7 +289,7 @@ export default function App() {
                 </div>
                 <div>
                   <h3>עבודה על כל הגוף במקביל</h3>
-                  <p>באימון רגיל אנו מפעילים קבוצת שרירים אחת בכל פעם. ב-EMS אנו מפעילים 9 קבוצות שרירים עיקריות בו-זמנית, מה שיוצר אפקט אימון שלם ב-20 דקות בלבד.</p>
+                  <p>באימון רגיל אנו מפעילים קבוצת שרירים אחת בכל פעם. ב-EMS ACTION אנו מפעילים 9 קבוצות שרירים עיקריות בו-זמנית. רכיב הגירוי החשמלי הפעיל נמשך כ-20 דקות וממקסם את עבודת השריר בפרק זמן קצר.</p>
                 </div>
               </div>
 
@@ -456,7 +461,7 @@ export default function App() {
             <span className="section-label">קהל יעד</span>
             <h2>למי האימון מתאים?</h2>
             <p className="section-desc">
-              אימון ה-EMS של גל נימני מותאם אישית למטרות ולמצב הבריאותי שלך.
+              אימון ה-EMS ACTION של גל נימני מותאם אישית למטרות ולמצב הבריאותי שלך.
             </p>
           </div>
 
@@ -466,7 +471,7 @@ export default function App() {
                 <div className="audience-icon"><Clock size={28} /></div>
               </div>
               <h3>אנשים עסוקים שאין להם זמן</h3>
-              <p>אם המשרה שלכם עמוסה, הילדים דורשים את שלהם ואין לכם שעה וחצי לפנות שלוש פעמים בשבוע – 20 דקות במוצאי שבת או בבוקר פותרות לכם את הפינה.</p>
+              <p>אם המשרה שלכם עמוסה, הילדים דורשים את שלהם ואין לכם שעה וחצי לפנות שלוש פעמים בשבוע – אימונים ממוקדים וקצרים המשלבים טכנולוגיה מתקדמת יתנו לכם את הפתרון המושלם בזמן מינימלי.</p>
             </div>
 
             <div className="audience-card">
@@ -494,7 +499,7 @@ export default function App() {
           <div className="profile-grid">
             <div className="profile-img-side">
               <div className="profile-frame">
-                <img src="/ems-opening.jpg" alt="גל נימני - פתיחת סטודיו EMS Action" className="profile-img" />
+                <img src="/ems-opening.jpg" alt="גל נימני - פתיחת סטודיו EMS ACTION" className="profile-img" />
                 <div className="profile-badge">
                   <Award size={20} />
                   <span>פתיחה חגיגית 🥂</span>
@@ -506,10 +511,10 @@ export default function App() {
               <span className="section-label">הלב של הסטודיו</span>
               <h2>גל נימני – המאמנת האישית שלך</h2>
               <p className="profile-lead">
-                נעים להכיר, אני גל נימני, מייסדת ומאמנת כושר מוסמכת בסטודיו הבוטיק EMS Action ביהוד.
+                נעים להכיר, אני גל נימני, מייסדת ומאמנת כושר מוסמכת בסטודיו הבוטיק EMS ACTION ביהוד.
               </p>
               <p className="profile-desc">
-                החזון שלי הוא להנגיש את מהפכת ה-EMS בצורה המקצועית והאישית ביותר. בסטודיו שלנו, כל אימון הוא 1-על-1 באווירה בוטיקית ושקטה. אנו לא עוד חדר כושר המוני – אנו מעניקים לך ליווי אישי צמוד, התאמה מדויקת של עוצמת המכשיר לכל קבוצת שרירים, ומעקב מדדים שבועי כדי להבטיח תוצאות מקסימליות בזמן קצר.
+                החזון שלי הוא להנגיש את מהפכת ה-EMS ACTION בצורה המקצועית והאישית ביותר. בסטודיו שלנו, כל אימון הוא 1-על-1 באווירה בוטיקית ושקטה. אנו לא עוד חדר כושר המוני – אנו מעניקים לך ליווי אישי צמוד, התאמה מדויקת של עוצמת המכשיר לכל קבוצת שרירים, ומעקב מדדים שבועי כדי להבטיח תוצאות מקסימליות בזמן קצר.
               </p>
               
               <div className="profile-bullets">
@@ -564,6 +569,30 @@ export default function App() {
             </div>
           </div>
 
+          {/* Irresistible Kickstart Offer Callout */}
+          <div className="kickstart-offer-box">
+            <div className="offer-badge-glow">הצעה מיוחדת לזמן מוגבל</div>
+            <div className="kickstart-offer-content">
+              <div className="offer-text">
+                <h3>חבילת התנעה לשינוי גופני מובטח ב-30 יום</h3>
+                <p>פגישת אבחון הרכב גוף מקיף + בניית אסטרטגיית תזונה + אימון היכרות אישי 1-על-1 בקליניקה ביהוד בהובלת גל נימני.</p>
+                <div className="guarantee-tag">
+                  <ShieldCheck size={16} />
+                  <span>התחייבות לתוצאות: לא ראית שינוי תוך 30 יום? החזר כספי מלא!</span>
+                </div>
+              </div>
+              <div className="offer-price-area">
+                <div className="old-price">₪350</div>
+                <div className="new-price">
+                  <span className="price-symbol">₪</span>
+                  <span className="price-num">99</span>
+                </div>
+                <p className="price-terms">חד-פעמי לפגישת ההיכרות</p>
+                <a href="#lead-form" className="btn-offer-cta">תיאום פגישה ב-₪99 בלבד</a>
+              </div>
+            </div>
+          </div>
+
           <div className="pricing-grid">
             
             {/* Standard Package */}
@@ -578,14 +607,14 @@ export default function App() {
               <div className="price-divider"></div>
               
               <ul className="price-features">
-                <li><CheckCircle size={16} /> אימון אישי 1-על-1 צמוד עם גל נימני</li>
-                <li><CheckCircle size={16} /> התאמה מלאה של חליפת אלקטרודות</li>
-                <li><CheckCircle size={16} /> מעקב הרכב גוף שבועי (אחוזי שומן/שריר)</li>
+                <li><CheckCircle size={16} /> אימון אישי 1-על-1 בשיטה ההיברידית</li>
                 <li><CheckCircle size={16} /> התאמת עוצמת גירוי אישית לכל שריר</li>
+                <li><CheckCircle size={16} /> מעקב הרכב גוף שבועי (אחוזי שומן/שריר)</li>
+                <li><CheckCircle size={16} /> גישה לתוכנית הבית שלנו לתוצאות מהירות</li>
                 <li><CheckCircle size={16} /> גמישות בתיאום שעות האימון</li>
               </ul>
               
-              <a href="#lead-form" className="btn-pricing">תיאום אימון ניסיון</a>
+              <a href="#lead-form" className="btn-pricing">תיאום פגישת היכרות</a>
             </div>
 
             {/* Premium Package */}
@@ -602,13 +631,13 @@ export default function App() {
               
               <ul className="price-features">
                 <li><CheckCircle size={16} /> דגש מיוחד על חיזוק זוקפי גב ושרירי ליבה</li>
-                <li><CheckCircle size={16} /> תוכנית הדרגתית מותאמת לפי מגבלות</li>
-                <li><CheckCircle size={16} /> אימון בקצב אישי המונע עומס על מפרקים</li>
-                <li><CheckCircle size={16} /> מעקב הרכב גוף ויציבה</li>
-                <li><CheckCircle size={16} /> ליווי אישי 1-על-1 באווירה שקטה ובטוחה</li>
+                <li><CheckCircle size={16} /> תוכנית אימונים אישית למניעת עומס</li>
+                <li><CheckCircle size={16} /> טכנולוגיית EMS להקלה מיידית</li>
+                <li><CheckCircle size={16} /> מעקב יציבה והרכב גוף מתמשך</li>
+                <li><CheckCircle size={16} /> ליווי אישי של גל נימני לאורך כל התהליך</li>
               </ul>
               
-              <a href="#lead-form" className="btn-pricing-premium">תיאום אימון ניסיון</a>
+              <a href="#lead-form" className="btn-pricing-premium">תיאום פגישת היכרות</a>
             </div>
           </div>
         </div>
@@ -657,7 +686,7 @@ export default function App() {
         <div className="container small-container">
           <div className="section-header">
             <span className="section-label">שאלות נפוצות</span>
-            <h2>כל מה שרציתם לדעת על EMS</h2>
+            <h2>כל מה שרציתם לדעת על EMS ACTION</h2>
           </div>
 
           <div className="faq-accordion-list">
@@ -690,9 +719,9 @@ export default function App() {
               <div className="form-success">
                 <div className="success-icon"><Zap size={40} /></div>
                 <h3>פרטיך נשלחו לגל!</h3>
-                <p>נציג הסטודיו או גל נימני בעצמה יחזרו אליך לקביעת אימון ניסיון מותאם אישית ביהוד.</p>
+                <p>נציג הסטודיו או גל נימני בעצמה יחזרו אליך לקביעת פגישת היכרות מותאמת אישית ביהוד.</p>
                 <a 
-                  href={`https://wa.me/972547471117?text=היי%20גל%2C%20אני%20פונה%20מהאתר.%20שמי%20${encodeURIComponent(formData.name)}.%20השארתי%20פרטים%20ואשמח%20לקבוע%20אימון%20ניסיון!`} 
+                  href={`https://wa.me/972543422190?text=היי%20גל%2C%20אני%20פונה%20מהאתר.%20שמי%20${encodeURIComponent(formData.name)}.%20השארתי%20פרטים%20ואשמח%20לקבוע%20פגישת%20היכרות%20ב-99%20ש%22ח!`} 
                   className="btn-whatsapp-success"
                   target="_blank"
                   rel="noreferrer"
@@ -703,8 +732,8 @@ export default function App() {
             ) : (
               <>
                 <div className="form-header">
-                  <h2>אימון ניסיון אישי ב-EMS Action</h2>
-                  <p>השאירו פרטים ונחזור אליכם לקביעת אימון ניסיון מותאם אישית בסטודיו ביהוד.</p>
+                  <h2>פגישת היכרות ואימון אישי ב-EMS ACTION</h2>
+                  <p>השאירו פרטים ונחזור אליכם לקביעת פגישה מותאמת אישית בסטודיו ביהוד ב-₪99 בלבד.</p>
                 </div>
                 <form onSubmit={handleSubmit} className="actual-form">
                   <div className="form-group">
@@ -740,7 +769,7 @@ export default function App() {
                     ></textarea>
                   </div>
                   <button type="submit" className="btn-submit">
-                    תיאום אימון ניסיון אישי
+                    תיאום פגישת היכרות אישית
                   </button>
                 </form>
               </>
@@ -768,7 +797,7 @@ export default function App() {
                 <Phone className="info-icon" />
                 <div>
                   <h4>טלפון לתיאום ובירורים</h4>
-                  <p>054-7471117 (גל נימני)</p>
+                  <p>054-3422190 (גל נימני)</p>
                 </div>
               </div>
 
@@ -802,13 +831,13 @@ export default function App() {
 
       {/* Footer bar */}
       <footer className="footer-main bg-darker">
-        <p>© 2026 EMS Action - סטודיו בוטיק לאימוני EMS ביהוד. כל הזכויות שמורות לגל נימני.</p>
+        <p>© 2026 EMS ACTION - סטודיו בוטיק לאימוני כושר אישיים ו-EMS ביהוד. כל הזכויות שמורות לגל נימני.</p>
         <p className="footer-credit">אסטרטגיה, מיתוג ופיתוח: גל נימני שיווק דיגיטלי & ייעוץ עסקי</p>
       </footer>
 
       {/* Floating WhatsApp Button */}
       <a 
-        href="https://wa.me/972547471117?text=היי%20גל%20אשמח%20לקבל%20פרטים%20על%20אימון%20ניסיון%20ב-EMS%20Action" 
+        href="https://wa.me/972543422190?text=היי%20גל%20אשמח%20לקבל%20פרטים%20על%20פגישת%20היכרות%20ב-EMS%20ACTION" 
         className="whatsapp-float"
         target="_blank"
         rel="noreferrer"
