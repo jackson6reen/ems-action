@@ -15,7 +15,11 @@ import {
   ChevronDown,
   Flame,
   Target,
-  Heart
+  Heart,
+  Copy,
+  Check,
+  Download,
+  ArrowLeft
 } from 'lucide-react';
 
 /* ═══════════════════════════════════════════════════════
@@ -112,6 +116,105 @@ const FAQS = [
 // Google Sheets Web App URL – replace with your deployed Apps Script URL
 const GOOGLE_SHEETS_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL';
 
+const MARKETING_CREATIVES = [
+  {
+    id: "no-time",
+    title: "גרסה 1: אין לי זמן (עובדים עסוקים והורים)",
+    painPoint: "חוסר זמן קיצוני להתאמן ביומיום",
+    image: "/fb-ad-no-time.png",
+    imageName: "fb-ad-no-time.png",
+    headline: "להחזיר את הגוף לכושר ב-20 דקות בשבוע!",
+    copy: `אין לך זמן להתאמן? בואו נדבר דוגרי.
+כשאתה עובד 10-12 שעות ביום או מנהלת קריירה ומשפחה, הדבר האחרון שיש לך כוח אליו זה לבלות שעה וחצי בחדר כושר, 3 פעמים בשבוע.
+
+בגלל זה פיתחנו את שיטת EMS ACTION ביהוד.
+ב-20 דקות בלבד, פעם אחת בשבוע – הגוף שלך מקבל גירוי שווה ערך ל-4 שעות אימון אינטנסיבי.
+אימון אישי 1-על-1 עם מאמן צמוד שמביא אותך לתוצאות בלי לבזבז זמן.
+
+שילוב מנצח של חיטוב, חיזוק שרירים והעלאת רמת האנרגיה ביום-יום.
+
+ההצעה שלנו? אימון היכרות ראשון מתנה, עלינו. בלי אותיות קטנות ובלי התחייבות.
+
+🔗 להשארת פרטים ורישום מהיר לאימון המתנה: [קישור לדף הנחיתה]`
+  },
+  {
+    id: "back-pain",
+    title: "גרסה 2: הקלה ושיקום כאבי גב",
+    painPoint: "כאבי גב כרוניים ויציבה לקויה מישיבה ממושכת",
+    image: "/fb-ad-back-pain.png",
+    imageName: "fb-ad-back-pain.png",
+    headline: "להעלים את כאבי הגב ב-20 דקות בשבוע",
+    copy: `קמים בבוקר עם גב תפוס? מרגישים את הגב התחתון אחרי כל חצי שעה של ישיבה?
+כאבי גב הם לא גזירת גורל. אתם לא צריכים "ללמוד לחיות עם זה".
+
+טכנולוגיית ה-EMS שלנו בסטודיו EMS ACTION הוכחה מדעית כמחזקת את שרירי הליבה העמוקים ביותר (הזוקפים של עמוד השדרה) – אלה שאף אימון רגיל לא מגיע אליהם.
+
+תוך 20 דקות בשבוע, באימון אישי מבוקר ובטוח לחלוטין, תרגישו איך הגב שלכם מתיישר, השרירים מתחזקים והכאבים פשוט נעלמים.
+
+הבריאות שלכם קודמת לכל. קבלו אימון היכרות פרימיום כולל אבחון במתנה וללא התחייבות!
+
+🔗 רוצים להרגיש את השינוי כבר מהאימון הראשון? לחצו כאן: [קישור לדף הנחיתה]`
+  },
+  {
+    id: "body-change",
+    title: "גרסה 3: חיטוב, שריפת שומן ושינוי הרכב הגוף",
+    painPoint: "תסכול מחוסר שינוי גופני ורצון להתחטב מהר",
+    image: "/fb-ad-body-change.png",
+    imageName: "fb-ad-body-change.png",
+    headline: "מתחטבים ומשילים שומן ב-20 דקות בשבוע",
+    copy: `רוצה לראות שינוי אמיתי במראה? להחזיר את הבגדים הישנים לארון?
+לפעמים נראה שצריך להרעיב את עצמנו או לרוץ מרתונים בשביל לרדת במשקל ולהתחטב. 
+אבל האמת היא אחרת: הסוד הוא להעלות מסת שריר כדי להאיץ את חילוף החומרים בגוף (גם כשאתם ישנים!).
+
+באימון EMS ACTION ביהוד, אנחנו מפעילים 90% מסיבי השריר בגוף בו-זמנית. זה אומר שריפת קלוריות מטורפת וחיטוב מואץ ב-20 דקות בלבד בשבוע.
+
+עם ליווי אישי 1:1 של גל נימני והתחייבות לתוצאות בכתב – אין סיכוי שלא תצליחו.
+
+ההזדמנות שלכם להתחיל מחדש: אימון היכרות ראשון ללא עלות!
+
+🔗 לחצו כאן ונתאם לכם אימון היכרות במתנה: [קישור לדף הנחיתה]`
+  },
+  {
+    id: "tried-everything",
+    title: "גרסה 4: פתרון למאוכזבי חדרי הכושר",
+    painPoint: "תסכול ממנויים שלא נוצלו וחוסר מוטיבציה",
+    image: "/fb-ad-tried-everything.png",
+    imageName: "fb-ad-tried-everything.png",
+    headline: "עוד מנוי לחדר כושר שסתם שוכב במגירה?",
+    copy: `כמה פעמים שילמתם על מנוי שנתי לחדר כושר וגיליתם שפשוט תרמתם להם כסף?
+שוב לעמוד בתור למכשירים, להשתעמם על ההליכון ולתהות אם אתם בכלל עושים את התרגיל נכון... לא פלא שנמאס לכם.
+
+בסטודיו EMS ACTION הכל נראה אחרת.
+רק אתם והמאמן האישי שלכם בסטודיו בוטיק פרטי ושקט. בלי הסחות דעת, בלי תורים, ובלי לבזבז שעות.
+
+אימון ממוקד, מדויק ואישי של 20 דקות בשבוע שנותן תוצאות של 4 שעות בחדר כושר רגיל. אנחנו נעקוב אחריכם, נדחוף אתכם ונוודא שאתם מגיעים למטרות שלכם.
+
+מפסיקים לזרוק כסף על מנויים שלא מנוצלים. בואו לנסות אימון היכרות במתנה!
+
+🔗 לתיאום אימון היכרות פרימיום 1:1 חינם: [קישור לדף הנחיתה]`
+  },
+  {
+    id: "post-pregnancy",
+    title: "גרסה 5: חזרה לכושר ושיקום לאחר לידה",
+    painPoint: "רצון לשקם את הגוף בבטחה ובמהירות אחרי הריון",
+    image: "/fb-ad-post-pregnancy.png",
+    imageName: "fb-ad-post-pregnancy.png",
+    headline: "איך לחזור לעצמך אחרי לידה?",
+    copy: `לאמא הטרייה שרוצה את הגוף שלה בחזרה 👶❤️
+אחרי לידה, הגוף שלך עבר טלטלה רצינית. הבטן נחלשה, הגב כואב מהנשיאות, ורצפת האגן דורשת שיקום.
+
+אנחנו יודעים שהדבר האחרון שיש לך זה זמן לעצמך, שלא לדבר על שעות בחדר כושר.
+בסטודיו EMS ACTION ביהוד פיתחנו מענה מושלם במיוחד בשבילך:
+**רק 20 דקות פעם בשבוע!**
+
+אימון אישי סופר-בטוח ומבוקר שמחזק את רצפת האגן, מצר היקפים ומחזיר לך את האנרגיות והביטחון העצמי – בלי להשאיר את הבייבי שעות לבד. הסטודיו שלנו אינטימי, נעים ומותאם לאמהות.
+
+מגיע לך להשקיע בעצמך. בואי לאימון היכרות ראשון מתנה וללא כל התחייבות.
+
+🔗 להרשמה מהירה לאימון היכרות מתנה ללא התחייבות: [קישור לדף הנחיתה]`
+  }
+];
+
 export default function App() {
   const [activeReview, setActiveReview] = useState(0);
   const [selectedMuscle, setSelectedMuscle] = useState(MUSCLE_GROUPS[1]);
@@ -122,6 +225,24 @@ export default function App() {
   const [formData, setFormData] = useState({ name: '', phone: '', goal: 'חיטוב וירידה במשקל', note: '' });
   
   const [scrolled, setScrolled] = useState(false);
+  const [showMarketing, setShowMarketing] = useState(false);
+  const [copiedId, setCopiedId] = useState<string | null>(null);
+
+  useEffect(() => {
+    const handleHashChange = () => {
+      setShowMarketing(window.location.hash === '#creatives');
+    };
+    handleHashChange();
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
+
+  const handleCopyText = (text: string, id: string) => {
+    navigator.clipboard.writeText(text);
+    setCopiedId(id);
+    setTimeout(() => setCopiedId(null), 2000);
+  };
+
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener('scroll', onScroll);
@@ -167,6 +288,88 @@ export default function App() {
       setFormSubmitting(false);
     }
   };
+
+  if (showMarketing) {
+    return (
+      <div className="marketing-view" dir="rtl">
+        <div className="grid-bg" />
+        <header className="navbar scrolled">
+          <div className="navbar-inner">
+            <div className="logo-area">
+              <span className="logo-badge"><Zap size={20} className="glow-icon" /></span>
+              <div className="logo-text-group">
+                <span className="logo-title">EMS ACTION</span>
+                <span className="logo-subtitle">אזור שיווק</span>
+              </div>
+            </div>
+            
+            <div className="nav-actions">
+              <a href="#" className="btn-navbar-cta">חזרה לאתר הראשי 🏠</a>
+            </div>
+          </div>
+        </header>
+
+        <section className="marketing-header">
+          <div className="container">
+            <span className="marketing-badge">קמפיין קריאייטיב</span>
+            <h1>קריאייטיבים לפייסבוק ואינסטגרם 🚀</h1>
+            <p>
+              כאן תוכלו למצוא את 5 גרסאות הקריאייטיב שיצרנו עבור הקמפיינים שלכם, כולל התמונות להורדה והטקסטים המוכנים להעתקה.
+            </p>
+            <a href="#" className="btn-back-home">
+              <ArrowLeft size={16} style={{ marginLeft: '8px' }} />
+              חזרה לאתר הראשי
+            </a>
+          </div>
+        </section>
+
+        <main className="container" style={{ position: 'relative', zIndex: 10 }}>
+          <div className="creatives-grid">
+            {MARKETING_CREATIVES.map((creative) => (
+              <article key={creative.id} className="creative-card">
+                <div className="creative-img-wrapper">
+                  <img src={creative.image} alt={creative.title} className="creative-img" />
+                  <div className="creative-actions-overlay">
+                    <a href={creative.image} download={creative.imageName} className="btn-download-img">
+                      <Download size={16} style={{ display: 'inline-block', marginLeft: '6px', verticalAlign: 'middle' }} />
+                      הורד תמונה
+                    </a>
+                  </div>
+                </div>
+                
+                <div className="creative-content">
+                  <span className="creative-meta-tag">{creative.painPoint}</span>
+                  <h3>{creative.title}</h3>
+                  <div className="creative-pain-point">
+                    <strong>הכותרת במודעה:</strong> {creative.headline}
+                  </div>
+                  <div className="creative-copy-box">
+                    {creative.copy}
+                  </div>
+                  <button 
+                    onClick={() => handleCopyText(creative.copy, creative.id)} 
+                    className={`btn-copy-copy ${copiedId === creative.id ? 'copied' : ''}`}
+                  >
+                    {copiedId === creative.id ? (
+                      <>
+                        <Check size={16} style={{ marginLeft: '6px' }} />
+                        הועתק בהצלחה!
+                      </>
+                    ) : (
+                      <>
+                        <Copy size={16} style={{ marginLeft: '6px' }} />
+                        העתק קופי למודעה
+                      </>
+                    )}
+                  </button>
+                </div>
+              </article>
+            ))}
+          </div>
+        </main>
+      </div>
+    );
+  }
 
   return (
     <div className="app-container" dir="rtl">
@@ -724,7 +927,7 @@ export default function App() {
       </section>
 
       <footer className="footer-main bg-dark">
-        <p>© 2026 EMS ACTION · סטודיו בוטיק לאימוני כושר אישיים ו-EMS ביהוד · כל הזכויות שמורות</p>
+        <p>© 2026 EMS ACTION · סטודיו בוטיק לאימוני כושר אישיים ו-EMS ביהוד · כל הזכויות שמורות · <a href="#creatives" style={{ color: '#ff4757', textDecoration: 'underline', fontWeight: 'bold' }}>אזור שיווק וקריאייטיב 🚀</a></p>
       </footer>
 
       {/* Floating WhatsApp */}
