@@ -1,23 +1,23 @@
 /* ═══════════════════════════════════════════════════════════════
-   EMS ACTION – Ultra-Premium Landing Page
+   EMS ACTION – Ultra-Premium Landing Page · RED/WARM Edition
    Designer-Level CSS · ₪10,000+ Quality
    ═══════════════════════════════════════════════════════════════ */
 
 :root {
-  --bg-darker: #060810;
-  --bg-dark: #0c0e1a;
-  --bg-card: #12152a;
-  --bg-card-hover: #191d38;
+  --bg-darker: #0a0608;
+  --bg-dark: #120c0e;
+  --bg-card: #1a1215;
+  --bg-card-hover: #241a1e;
   
-  --accent: #00e8ff;
-  --accent-hover: #00c8dd;
-  --accent-bg: rgba(0, 232, 255, 0.06);
-  --accent-border: rgba(0, 232, 255, 0.2);
-  --accent-glow: rgba(0, 232, 255, 0.35);
+  --accent: #ff4757;
+  --accent-hover: #e0323f;
+  --accent-bg: rgba(255, 71, 87, 0.07);
+  --accent-border: rgba(255, 71, 87, 0.22);
+  --accent-glow: rgba(255, 71, 87, 0.30);
   
-  --accent-warm: #ff6b35;
-  --accent-warm-bg: rgba(255, 107, 53, 0.08);
-  --accent-warm-border: rgba(255, 107, 53, 0.25);
+  --accent-warm: #ffb347;
+  --accent-warm-bg: rgba(255, 179, 71, 0.08);
+  --accent-warm-border: rgba(255, 179, 71, 0.25);
   
   --green: #25d366;
   
@@ -181,7 +181,7 @@ button { font-family: var(--font); }
 .logo-area { display: flex; align-items: center; gap: 12px; }
 
 .logo-badge {
-  background: linear-gradient(135deg, var(--accent), #007aff);
+  background: linear-gradient(135deg, var(--accent), #cc2936);
   color: var(--bg-darker);
   width: 42px;
   height: 42px;
@@ -246,7 +246,7 @@ button { font-family: var(--font); }
 .phone-link:hover { color: var(--accent); }
 
 .btn-navbar-cta {
-  background: linear-gradient(135deg, var(--accent), #007aff);
+  background: linear-gradient(135deg, var(--accent), #cc2936);
   color: var(--bg-darker);
   font-weight: 900;
   padding: 10px 22px;
@@ -339,7 +339,7 @@ button { font-family: var(--font); }
 }
 
 .gradient-text {
-  background: linear-gradient(135deg, var(--accent), #007aff);
+  background: linear-gradient(135deg, var(--accent), #cc2936);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -365,7 +365,7 @@ button { font-family: var(--font); }
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, var(--accent), #007aff);
+  background: linear-gradient(135deg, var(--accent), #cc2936);
   color: var(--bg-darker);
   font-weight: 900;
   padding: 18px 38px;
@@ -822,7 +822,7 @@ button { font-family: var(--font); }
 .bullet-item p { font-size: 0.92rem; color: var(--text-secondary); line-height: 1.5; }
 
 .btn-profile-cta {
-  background: linear-gradient(135deg, var(--accent), #007aff);
+  background: linear-gradient(135deg, var(--accent), #cc2936);
   color: var(--bg-darker);
   font-weight: 900;
   padding: 16px 34px;
@@ -1062,7 +1062,7 @@ button { font-family: var(--font); }
 }
 
 .btn-submit {
-  background: linear-gradient(135deg, var(--accent), #007aff);
+  background: linear-gradient(135deg, var(--accent), #cc2936);
   color: var(--bg-darker);
   font-weight: 900;
   padding: 16px;
@@ -1290,7 +1290,7 @@ button { font-family: var(--font); }
 }
 
 .mobile-cta-primary {
-  background: linear-gradient(135deg, var(--accent), #007aff);
+  background: linear-gradient(135deg, var(--accent), #cc2936);
   color: var(--bg-darker);
 }
 

@@ -245,18 +245,18 @@ export default function App() {
             
             <div className="hero-stats">
               <div className="stat-box">
-                <span className="stat-num">3X</span>
+                <span className="stat-num">1:1</span>
+                <span className="stat-lbl">יחס אישי צמוד</span>
+              </div>
+              <div className="stat-divider" />
+              <div className="stat-box">
+                <span className="stat-num">4X</span>
                 <span className="stat-lbl">שריפת קלוריות</span>
               </div>
               <div className="stat-divider" />
               <div className="stat-box">
-                <span className="stat-num">90%</span>
-                <span className="stat-lbl">הפעלת שרירים</span>
-              </div>
-              <div className="stat-divider" />
-              <div className="stat-box">
-                <span className="stat-num">1:1</span>
-                <span className="stat-lbl">ליווי אישי צמוד</span>
+                <span className="stat-num">90-100%</span>
+                <span className="stat-lbl">כל הגוף עובד</span>
               </div>
             </div>
           </div>
@@ -296,7 +296,7 @@ export default function App() {
 
           <div className="tech-grid">
             <div className="tech-media-box">
-              <img src="/ems-plank.jpg" alt="אימון EMS בסטודיו של גל" className="tech-img" />
+              <img src="/ems-opening.jpg" alt="סטודיו EMS ACTION יהוד" className="tech-img" />
               <div className="media-overlay-card">
                 <Zap size={22} className="accent-color" />
                 <div>
@@ -353,8 +353,8 @@ export default function App() {
                   <svg viewBox="0 0 200 400" className="body-svg">
                     <defs>
                       <linearGradient id="glowGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stopColor="#00d2c4" stopOpacity="0.8" />
-                        <stop offset="100%" stopColor="#005080" stopOpacity="0.2" />
+                        <stop offset="0%" stopColor="#ff4757" stopOpacity="0.8" />
+                        <stop offset="100%" stopColor="#802030" stopOpacity="0.2" />
                       </linearGradient>
                     </defs>
                     <circle cx="100" cy="50" r="18" className="body-part" />
@@ -460,7 +460,7 @@ export default function App() {
           <div className="profile-grid">
             <div className="profile-img-side">
               <div className="profile-frame">
-                <img src="/ems-opening.jpg" alt="גל נימני – EMS ACTION" className="profile-img" />
+                <img src="/gal-training.jpg" alt="גל נימני מתאמנת בסטודיו EMS ACTION" className="profile-img" />
                 <div className="profile-badge">
                   <Award size={18} />
                   <span>מאמנת מוסמכת</span>
