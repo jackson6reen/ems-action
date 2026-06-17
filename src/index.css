@@ -35,7 +35,7 @@
   --shadow-sm: 0 4px 20px rgba(0, 0, 0, 0.4);
   --shadow-md: 0 12px 40px rgba(0, 0, 0, 0.5);
   --shadow-lg: 0 24px 60px rgba(0, 0, 0, 0.6);
-  --shadow-glow: 0 0 40px rgba(0, 232, 255, 0.08);
+  --shadow-glow: 0 0 40px rgba(255, 71, 87, 0.08);
 }
 
 /* ═══ RESETS ═══ */
@@ -92,7 +92,7 @@ button { font-family: var(--font); }
   opacity: 0.25;
 }
 .orange-glow { width: 500px; height: 500px; background: var(--accent-warm); top: 10%; right: -150px; }
-.cyan-glow { width: 600px; height: 600px; background: var(--accent); bottom: 20%; left: -200px; }
+.red-glow { width: 600px; height: 600px; background: var(--accent); bottom: 20%; left: -200px; }
 
 .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; width: 100%; }
 .small-container { max-width: 640px; margin: 0 auto; padding: 0 24px; width: 100%; }
@@ -260,7 +260,7 @@ button { font-family: var(--font); }
 }
 .btn-navbar-cta:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(0, 232, 255, 0.45);
+  box-shadow: 0 8px 30px rgba(255, 71, 87, 0.45);
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -343,7 +343,7 @@ button { font-family: var(--font); }
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  filter: drop-shadow(0 2px 12px rgba(0, 232, 255, 0.15));
+  filter: drop-shadow(0 2px 12px rgba(255, 71, 87, 0.15));
 }
 
 .hero-desc {
@@ -378,7 +378,7 @@ button { font-family: var(--font); }
 }
 .btn-hero-primary:hover {
   transform: translateY(-3px);
-  box-shadow: 0 12px 40px rgba(0, 232, 255, 0.5);
+  box-shadow: 0 12px 40px rgba(255, 71, 87, 0.5);
 }
 
 .btn-hero-secondary {
@@ -618,7 +618,7 @@ button { font-family: var(--font); }
   background: var(--accent-bg);
   border-color: var(--accent);
   color: var(--accent);
-  box-shadow: 0 4px 15px rgba(0, 232, 255, 0.12);
+  box-shadow: 0 4px 15px rgba(255, 71, 87, 0.12);
   transform: translateX(-4px);
 }
 
@@ -836,7 +836,7 @@ button { font-family: var(--font); }
 }
 .btn-profile-cta:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(0, 232, 255, 0.45);
+  box-shadow: 0 8px 30px rgba(255, 71, 87, 0.45);
 }
 
 /* ═══════════════════════════════════════════════════════════════
@@ -870,7 +870,7 @@ button { font-family: var(--font); }
 .step-num {
   font-size: 2.8rem;
   font-weight: 900;
-  background: linear-gradient(180deg, var(--accent), rgba(0, 232, 255, 0.2));
+  background: linear-gradient(180deg, var(--accent), rgba(255, 71, 87, 0.2));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -1048,7 +1048,7 @@ button { font-family: var(--font); }
 .form-select:focus {
   outline: none;
   border-color: var(--accent);
-  box-shadow: 0 0 18px rgba(0, 232, 255, 0.15);
+  box-shadow: 0 0 18px rgba(255, 71, 87, 0.15);
   background: rgba(6, 8, 16, 0.8);
 }
 
@@ -1077,7 +1077,7 @@ button { font-family: var(--font); }
 }
 .btn-submit:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(0, 232, 255, 0.5);
+  box-shadow: 0 8px 30px rgba(255, 71, 87, 0.5);
 }
 
 .form-disclaimer {
@@ -1114,7 +1114,7 @@ button { font-family: var(--font); }
   justify-content: center;
   margin: 0 auto 22px;
   border: 1px solid var(--accent-border);
-  box-shadow: 0 0 30px rgba(0, 232, 255, 0.2);
+  box-shadow: 0 0 30px rgba(255, 71, 87, 0.2);
 }
 .form-success h3 { font-size: 1.7rem; font-weight: 900; margin-bottom: 10px; color: var(--text-primary); }
 .form-success p { color: var(--text-secondary); font-size: 1.05rem; margin-bottom: 30px; }

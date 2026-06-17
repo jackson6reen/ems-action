@@ -172,7 +172,7 @@ export default function App() {
     <div className="app-container" dir="rtl">
       <div className="grid-bg" />
       <div className="sparkle-glow orange-glow" />
-      <div className="sparkle-glow cyan-glow" />
+      <div className="sparkle-glow red-glow" />
 
       {/* ═══════════════════════════════════════════════════════
           NAVBAR – 4 Items, One Line, Premium
